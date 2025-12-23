@@ -1,12 +1,15 @@
 package domain;
 
+import org.bson.types.ObjectId;
+
 import java.util.Date;
+import java.util.List;
 
 public record Post(String title,
                    String content,
                    Date dateCreated,
-                   String authorId,
-                   Object[] comments,
-                   Object[] tags,
-                   Object[] reviews)
+                   ObjectId authorId,
+                   List<Comment> comments,
+                   List<Tag> tags,
+                   List<Review> reviews)
 {}

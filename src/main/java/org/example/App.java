@@ -1,44 +1,29 @@
 package org.example;
 
+import Config.MongoConfig;
+import DAO.UserRepository;
 import com.mongodb.client.MongoClient;
-import com.mongodb.client.MongoClients;
-import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoDatabase;
-import com.mongodb.client.result.InsertManyResult;
-import org.bson.Document;
-import org.bson.types.ObjectId;
+import domain.Role;
+import domain.User;
 
-import java.util.ArrayList;
-import java.util.List;
-
-/**
- * Hello world!
- *
- */
 public class App 
 {
     public static void main( String[] args )
     {
-        String uri = "mongodb://localhost:27017";
+        MongoClient client = MongoConfig.getClient();
+        UserRepository urepo = new UserRepository(client);
 
-        try (MongoClient mongoClient = MongoClients.create(uri)){
-            MongoDatabase database = mongoClient.getDatabase("blogrdb");
-            MongoCollection<Document> collection = database.getCollection("examplellection");
+        User u = new User("newTestUser", "email@example.com", "password", String.valueOf(Role.REGULAR));
+//        urepo.createUser(u);
+        urepo.getAllUsers();
+//        System.out.println(urepo.findById("694a784aed1a924700ad81ef"));
+//        System.out.println(urepo.findByUsername("testUser"));
+//        urepo.deleteUser("694a784aed1a924700ad81ef");
+//        urepo.deleteUser("694a814852a9f062f812ea5f");
+//        urepo.updateUser("694a9986051efa4540ce1354", "username", "updatedUsername");
+//        urepo.deleteUser("694a8bc52b686e4befd60123");
+        System.out.println(urepo.findByUsername("testUser"));
 
-            List<Document> documents = new ArrayList<>();
-            Document doc1 = new Document("color", "red").append("qty", 5);
-            Document doc2 = new Document("color", "purple").append("qty", 40);
 
-            documents.add(doc1);
-            documents.add(doc2);
-
-            InsertManyResult res = collection.insertMany(documents);
-
-            List<ObjectId> inserteds = new ArrayList<>();
-            res.getInsertedIds().values()
-                    .forEach(doc -> inserteds.add(doc.asObjectId().getValue()));
-
-            System.out.println(inserteds);
-        }
     }
 }

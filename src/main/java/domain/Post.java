@@ -8,6 +8,7 @@ import java.util.List;
 public record Post(String title,
                    String content,
                    Date dateCreated,
+                   Date lastUpdate,
                    ObjectId authorId,
                    List<Comment> comments,
                    List<Tag> tags,

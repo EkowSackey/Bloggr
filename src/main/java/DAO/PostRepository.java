@@ -4,7 +4,9 @@ import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.Filters;
+import com.mongodb.client.model.Updates;
 import com.mongodb.client.result.InsertOneResult;
+import com.mongodb.client.result.UpdateResult;
 import domain.*;
 import exceptions.PostNotFoundException;
 import org.bson.Document;
@@ -13,6 +15,8 @@ import org.bson.types.ObjectId;
 
 import java.util.Objects;
 import java.util.regex.Pattern;
+
+import static com.mongodb.client.model.Updates.push;
 
 public class PostRepository {
     private final MongoCollection<Document> collection;
@@ -26,6 +30,7 @@ public class PostRepository {
         d.put("title", post.title());
         d.put("content", post.content());
         d.put("dateCreated", post.dateCreated());
+        d.put("lastUpdate", post.lastUpdate());
         d.put("authorId", post.authorId());
         d.put("comments", post.comments());
         d.put("tags", post.tags());
@@ -39,6 +44,7 @@ public class PostRepository {
                 d.getString("title"),
                 d.getString("content"),
                 d.getDate("dateCreated"),
+                d.getDate("lastUpdate"),
                 d.getObjectId("authorId"),
                 d.getList("comments", Comment.class),
                 d.getList("tags", Tag.class),
@@ -94,11 +100,17 @@ public class PostRepository {
         ));
     }
 
-    public void updatePost(){
+    public void updatePost(String id, String field, String value){
+        Bson filter = Filters.eq("_id", new ObjectId(id));
+        Bson updates  = Updates.set(field, value);
 
+        UpdateResult result = collection.updateOne(filter, updates);
+        System.out.println("Modified fields:" + result.getModifiedCount());
     }
 
-    public void addPostReview(){
+    public void addPostReview(String postId, Review review){
+        Bson filter = Filters.eq("_id", new ObjectId(postId));
+        UpdateResult result = collection.updateOne(filter, push("reviews", review));
 
     }
 

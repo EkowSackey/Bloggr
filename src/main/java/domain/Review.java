@@ -1,7 +1,9 @@
 package domain;
 
+import org.bson.types.ObjectId;
+
 public record Review(
         double stars,
-        String userId,
-        String postId
+        ObjectId userId,
+        ObjectId postId
 ) {}

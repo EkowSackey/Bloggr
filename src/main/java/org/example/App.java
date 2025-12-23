@@ -36,7 +36,7 @@ public class App
         List<Tag> tags = new ArrayList<>();
         tags.add(tag1);
         tags.add(tag2);
-        Post post = new Post("decorated monkeys", "content of post rawr", new Date(), new ObjectId("694a8bc52b686e4befd60123"), new ArrayList<>(), tags, new ArrayList<>() );
+//        Post post = new Post("decorated monkeys", "content of post rawr", new Date(), new ObjectId("694a8bc52b686e4befd60123"), new ArrayList<>(), tags, new ArrayList<>() );
 
 
 //        prepo.createPost(post);
@@ -44,7 +44,10 @@ public class App
 //        System.out.println(prepo.getPostById("694aac1b70a63338ce148243"));
 //        prepo.getPostsByTag(tag2);
 
-        prepo.getPostsByTitle("monkey");
+//        prepo.getPostsByTitle("monkey");
+        prepo.updatePost("694ab3f4b226de790f645e94", "title", "updated title hurrah!");
 
+        Review rev = new Review(3.5, new ObjectId("694a8bb753b86984679fe103"), new ObjectId("694ab3f4b226de790f645e94") );
+        prepo.addPostReview(rev.postId().toHexString(), rev);
     }
 }

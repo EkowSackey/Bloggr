@@ -13,6 +13,8 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+      <javafx.version>21</javafx.version>
+      <javafx.maven.plugin.version>0.0.8</javafx.maven.plugin.version>
   </properties>
 
   <dependencyManagement>
@@ -38,6 +40,12 @@
           <groupId>org.mongodb</groupId>
           <artifactId>mongodb-driver-sync</artifactId>
       </dependency>
+      <dependency>
+      <groupId>org.openjfx</groupId>
+      <artifactId>javafx-controls</artifactId>
+      <version>${javafx.version}</version>
+      </dependency>
+
   </dependencies>
     <build>
         <plugins>

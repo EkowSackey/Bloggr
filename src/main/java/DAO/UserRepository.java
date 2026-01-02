@@ -7,6 +7,7 @@ import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.Updates;
 import com.mongodb.client.result.InsertOneResult;
 import com.mongodb.client.result.UpdateResult;
+import domain.Post;
 import domain.User;
 import exceptions.UserNotFoundException;
 import org.bson.Document;
@@ -14,6 +15,8 @@ import org.bson.conversions.Bson;
 import org.bson.types.ObjectId;
 
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class UserRepository {
@@ -49,12 +52,11 @@ public class UserRepository {
                 .asObjectId().getValue());
     }
 
-    public void getAllUsers(){
+    public List<User> getAllUsers(){
         FindIterable<Document> docs = collection.find();
-        docs.forEach(doc -> System.out.println("user_id: "
-                + doc.getObjectId("_id")
-                + "  username: "
-                + doc.getString("username")));
+        List<User> users = new ArrayList<>();
+        docs.forEach( doc -> users.add(toDomain(doc)));
+        return users;
     }
 
     public User findById(String id){

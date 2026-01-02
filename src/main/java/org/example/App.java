@@ -45,9 +45,14 @@ public class App
 //        prepo.getPostsByTag(tag2);
 
 //        prepo.getPostsByTitle("monkey");
-        prepo.updatePost("694ab3f4b226de790f645e94", "title", "updated title hurrah!");
+        Comment c = new Comment("yayaya", new ObjectId("694a8bb753b86984679fe103"), new ObjectId("695798f3bef8cd4867b182d7"), new ArrayList<>(), new Date());
+//        prepo.updatePost("694ab3f4b226de790f645e94", "title", "updated title hurrah!");
 
-        Review rev = new Review(3.5, new ObjectId("694a8bb753b86984679fe103"), new ObjectId("694ab3f4b226de790f645e94") );
-        prepo.addPostReview(rev.postId().toHexString(), rev);
+//        Review rev = new Review(3.5, new ObjectId("694a8bb753b86984679fe103"), new ObjectId("694ab3f4b226de790f645e94") );
+//        prepo.addPostReview(rev.postId().toHexString(), rev);
+//        prepo.addSubComment("694aac1b70a63338ce148243",c);
+//        prepo.deleteCommentById("694aac1b70a63338ce148243","6957942912052fd2d99b1e8b");
+//        prepo.deletePost("694ab23570711a221c1f6950");
+//        prepo.getPostsByAuthor("694a8bc52b686e4befd60123");
     }
 }
